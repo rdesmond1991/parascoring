@@ -175,12 +175,14 @@ class WaypointOptimizer:
         wpts_hit = list(self.wpts_hit.values())
         for wpt in wpts_hit:
             total = total + wpt['wpt_wrapper'].wpt.pts
+
             if wpt['wpt_wrapper'].is_finish():
                 if wpt == wpts_hit[-1]:
                     total = total - start_pts
                     results['finish_time'] = wpts_hit[-1]['igc_info'].time.strftime("%m/%d/%Y, %H:%M:%S")
             else:
                 if wpt['wpt_wrapper'].wpt.pts != 0:
+                    print(wpt['igc_info'])
                     results['wpt_list'].append({'wpt': wpt['wpt_wrapper'].wpt.name,
                                                 'time': wpt['igc_info'].time.strftime("%m/%d/%Y, %H:%M:%S")})
         results['total'] = total

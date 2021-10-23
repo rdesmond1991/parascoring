@@ -26,8 +26,7 @@ class TestHandler(unittest.TestCase):
     def test_score_id(self):
         event = {
             'pathParameters': {'compid': 'WANAKA_2021'},
-            'queryStringParameters': {'userid': '3704a305-7454-47e2-ab93-01704b621a86',
-                                      'meta': {'night_checkpoint': False}}
+            'queryStringParameters': {'userid': 'fa9e1bf2-a515-49f2-9c79-668c067f63c3', 'night_checkpoint': 'false'}
         }
         response = handler.handler(event, None)
         print(response)

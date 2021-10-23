@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-
+from geopy.distance import geodesic
 import numpy
 
 
@@ -66,14 +66,10 @@ def dec_to_igc_deg(dec, opt_type: str):
     return str(int((int(dec) + minutes)*10E4)) + direction_sign
 
 
-def get_distance_from_lat_lon_in_km(lat1, lon1, lat2, lon2):
-    radius = 6371  # Radius of the earth in km
-    d_lat = deg2rad(lat2-lat1)  # deg2rad below
-    d_lon = deg2rad(lon2-lon1)
-    a = numpy.sin(d_lat/2) * numpy.sin(d_lat/2) + numpy.cos(deg2rad(lat1)) * numpy.cos(deg2rad(lat2)) \
-        * numpy.sin(d_lon/2) * numpy.sin(d_lon/2)
-    c = 2 * numpy.arctan2(numpy.sqrt(a), numpy.sqrt(1-a))
-    return radius * c  # Distance in km
+def get_distance_from_lat_lon_in_km(lon1, lat1, lon2, lat2):
+    # TODO: Fix IGC!
+    # print('Lat {}, lon {}, lat {}, lon {}'.format(lat1, lon1, lat2, lon2))
+    return geodesic((lat1, lon1), (lat2, lon2)).km  # Distance in km
 
 
 def deg2rad(deg):
