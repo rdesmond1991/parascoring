@@ -11,5 +11,7 @@ setup(name='HikeFlyScoring',
       package_dir={'scoring': 'parascoring/scoring', 'scoring_lambda': 'parascoring/scoring_lambda'},
       requires=[
           'numpy',
-          'configargparse'
+          'configargparse',
+          'boto3',
+          'geopy'
         ])

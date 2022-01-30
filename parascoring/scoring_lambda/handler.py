@@ -8,6 +8,7 @@ from parascoring.scoring import scorer as s
 import logging
 from botocore.exceptions import ClientError
 
+from parascoring.scoring.IgcSubsampler import SubSampleManager
 from parascoring.scoring.WaypointOptimizer import WaypointOptimizer
 
 logger = logging.getLogger()
@@ -167,7 +168,11 @@ class BusinessHandler:
                 wpt_config_dict = json.load(f)
             wpt_dict = parascoring.scoring.Utils.parse_wpt_file(wpt_file_path)
             logger.info('Waypoint file parsed')
-            score = s.score_igcs_optimized(igc_files, wpt_dict, wpt_config_dict)
+            sub_sample_manager = SubSampleManager(self.user_id, self.competition_id)
+            score = s.score_igcs_optimized(igc_files,
+                                           wpt_dict,
+                                           wpt_config_dict,
+                                           sub_sample_manager)
             meta = {}
             if 'night_checkpoint' in self._event['queryStringParameters']:
                 meta = {'night_checkpoint': self._event['queryStringParameters']['night_checkpoint'] == 'true'}
